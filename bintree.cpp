@@ -274,15 +274,27 @@ void BinTree::rotate(int x, Direction d)
 	Node* Node::* dp = (d == Direction::left ? &Node::left : &Node::right),
 		* Node::*ndp = (dp == &Node::left ? &Node::right : &Node::left);
 	
-	Node * nd = search(x),
-		 * pivot = nd->*dp,
+	Node * nd = search(x);
+	if (nd==nullptr) return;
+	Node * pivot = nd->*dp,
 		 * prev_root = nd,
 		 * pivot_chld = pivot->*ndp;
 
-	if (nd == root) root = pivot;
-	else nd = pivot;
-	prev_root->*dp = pivot_chld;
-	pivot->*ndp = prev_root;
+	if (nd == root)
+	{
+		root = pivot;
+		prev_root->*dp = pivot_chld;
+		pivot->*ndp = prev_root;
+	}
+	else
+	{
+		nd = pivot;
+		std::pair<Node *, Direction> parroot = search_parent(x,root);
+		parroot.first->*(parroot.second == Direction::left ? &Node::left : &Node::right) = pivot;
+		prev_root->*dp = pivot_chld;
+		pivot->*ndp = prev_root;
+	}
+	
 	
 }
 
