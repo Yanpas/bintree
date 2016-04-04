@@ -305,10 +305,13 @@ void BinTree::rotate(Node * nd, Direction d)
 
 bool BinTree::isBST() const
 {
-	
+	return isBST(root);
 }
 
-bool BinTree::isBST(Node * nd) const
+bool BinTree::isBST(Node * const nd) const
 {
-	
+	if (nd == nullptr) return true;
+	if (nd->right and nd->val > nd->right->val) return false;
+	if (nd->left and nd->val < nd->left->val) return false;
+	return isBST(nd->left) and isBST(nd->right);
 }

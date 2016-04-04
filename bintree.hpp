@@ -61,7 +61,7 @@ class BinTree
 	Node * search_min_right(Node * nd);
 	Node * search_max_left(Node * nd);
 	std::pair<Node *, Direction> search_parent(int x, Node * nd);
-	bool isBST(Node * nd) const;
+	bool isBST(Node * const nd) const;
 };
 
 
