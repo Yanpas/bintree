@@ -298,8 +298,20 @@ void BinTree::delnode(int x)
 	
 }
 
-void BinTree::rotate(Node * nd, Direction d)
+void BinTree::rotate(int x, Direction d)
 {
+	Node* Node::* dp = (d == Direction::left ? &Node::left : &Node::right),
+		* Node::*ndp = (dp == &Node::left ? &Node::right : &Node::left);
+	
+	Node * nd = search(x),
+		 * pivot = nd->*dp,
+		 * prev_root = nd,
+		 * pivot_chld = pivot->*ndp;
+
+	if (nd == root) root = pivot;
+	else nd = pivot;
+	prev_root->*dp = pivot_chld;
+	pivot->*ndp = prev_root;
 	
 }
 

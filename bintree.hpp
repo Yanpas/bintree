@@ -43,7 +43,7 @@ class BinTree
 	int mindepth() const;
 	bool isBalanced() const;
 	void delnode(int x);
-	void rotate(Node * nd, Direction d);
+	void rotate(int x, Direction d);
 	bool isBST() const;
 	friend Node * getroot(BinTree& name)
 	{

@@ -23,18 +23,20 @@ int main()
 //		<< " isBalanced " << t.isBalanced()
 //		<< std::endl;
 //	}
-	int delar[]={50,150,20,75,95,175,5,25,66,80,92,111,166,200};
+//	int delar[]={50,150,20,75,95,175,5,25,66,80,92,111,166,200};
 //	int delar[]={95,175,5,25,66,80,92,111,166,200};
-	kek.delnode(90);
+//	kek.delnode(90);
+	kek.rotate(90,Direction::right);
 	kek.print();
-	for (auto n:delar)
-	{
-		std::cout << "del\t" << n << std::endl;
-		kek.delnode(n);
-		kek.print();
-		std::cout << "newsize: " << kek.size() << std::endl << std::endl;
-	}
-	kek.print();
+//	for (auto n:delar)
+//	{
+//		std::cout << "del\t" << n << std::endl;
+//		kek.delnode(n);
+//		kek.print();
+//		std::cout << "newsize: " << kek.size() << std::endl << std::endl;
+//	}
+//	kek.print();
+	std::cout << std::boolalpha << kek.isBST();
 //	std::cout << getroot(kek);
 	return 0;
 }
