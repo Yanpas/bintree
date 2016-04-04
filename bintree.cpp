@@ -120,6 +120,7 @@ Node * BinTree::search(int x, Node * nd)
 {
 	Node * fndl = nullptr;
 	Node * fndr = nullptr;
+	if (nd==nullptr) return nullptr;
 	if ( nd->val == x ) return nd;
 	if ( nd->val < x && nd->right != nullptr) fndr = search(x, nd->right) ;
 	if ( nd->val > x && nd->left != nullptr) fndl = search(x, nd->left) ;
@@ -203,55 +204,25 @@ bool BinTree::isBalanced() const
 void BinTree::delnode(int x)
 {
 	Node* nd = search(x,root);
+	if (nd == nullptr) return;
+	
 	std::pair<Node *, Direction> par = search_parent(x,root);
+	auto dir = par.second==Direction::left ? &Node::left : &Node::right;
+	
 	auto erase_child_with_1_child = 
 		[](std::pair<Node *, Direction> par, Direction nd_ch)
 		{
-			if(par.second==Direction::right)
-			{
-				if (nd_ch == Direction::left)
-				{
-					Node * tmp = par.first->right;
-					par.first->right = par.first->right->left;
-					tmp->left=nullptr;
-					delete tmp;
-				}
-				else if (nd_ch == Direction::right)
-				{
-					Node * tmp = par.first->right;
-					par.first->right = par.first->right->right;
-					tmp->right=nullptr;
-					delete tmp;
-				}
-			}
-			else if (par.second==Direction::left)
-			{
-				{
-				if (nd_ch == Direction::left)
-				{
-					Node * tmp = par.first->left;
-					par.first->left = par.first->left->left;
-					tmp->left=nullptr;
-					delete tmp;
-				}
-				else if (nd_ch == Direction::right)
-				{
-					Node * tmp = par.first->left;
-					par.first->left = par.first->left->right;
-					tmp->right=nullptr;
-					delete tmp;
-				}
-			}
-			}
+			auto dir = par.second==Direction::right ? &Node::right : &Node::left,
+				counterdir = dir==&Node::right ? &Node::left : &Node::right;
+			Node * tmp = par.first->*dir;
+			par.first->*dir = (par.first->*dir)->*counterdir;
+			tmp->*counterdir=nullptr;
+			delete tmp;
 		};
-	if (nd == nullptr) return;
 	if (nd->left==nullptr and nd->right==nullptr)
 	{
 		if (par.first != nullptr)
-		{
-			if (par.second == Direction::left) par.first->left=nullptr;
-			else if (par.second == Direction::right) par.first->right=nullptr;
-		}
+			par.first->*dir=nullptr;
 		delete nd;
 		if(nd == root) root = nullptr;
 		nd = nullptr;
