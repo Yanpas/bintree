@@ -111,20 +111,20 @@ void BinTree::insert (Node * nd, int x)
 	}
 }
 
-Node *& BinTree::search(int x)
+Node * BinTree::search(int x)
 {
 	return search(x, root);
 }
 
-Node *& BinTree::search(int x, Node *& nd)
+Node * BinTree::search(int x, Node * nd)
 {
-	Node *& fndl = nullnode;
-	Node *& fndr = nullnode;
+	Node * fndl = nullptr;
+	Node * fndr = nullptr;
 	if ( nd->val == x ) return nd;
-	if ( nd->val < x && nd->right!=nullptr) fndr = search(x, nd->right) ;
-	if ( nd->val > x && nd->left!=nullptr) fndl = search(x, nd->left) ;
+	if ( nd->val < x && nd->right != nullptr) fndr = search(x, nd->right) ;
+	if ( nd->val > x && nd->left != nullptr) fndl = search(x, nd->left) ;
 	
-	if (fndl==nullptr and fndr == nullptr) {std::cerr << "Not found\n"; return nullnode;}
+	if (fndl==nullptr and fndr == nullptr) {std::cerr << "Not found\n"; return nullptr;}
 	return fndr ? fndr : fndl;
 }
 
@@ -202,7 +202,7 @@ bool BinTree::isBalanced() const
 
 void BinTree::delnode(int x)
 {
-	Node*& nd = search(x,root);
+	Node* nd = search(x,root);
 	std::pair<Node *, Direction> par = search_parent(x,root);
 	auto erase_child_with_1_child = 
 		[](std::pair<Node *, Direction> par, Direction nd_ch)
@@ -252,15 +252,16 @@ void BinTree::delnode(int x)
 			if (par.second == Direction::left) par.first->left=nullptr;
 			else if (par.second == Direction::right) par.first->right=nullptr;
 		}
-		nd = nullptr;
 		delete nd;
+		if(nd == root) root = nullptr;
+		nd = nullptr;
 	}
 	else if (nd->left==nullptr)
 	{
 		if(par.first == nullptr)
 		{
 			Node*tmp = nd;
-			nd = nd->right;
+			root = nd->right;
 			tmp->right = nullptr;
 			delete tmp;
 			return;
@@ -272,7 +273,7 @@ void BinTree::delnode(int x)
 		if(par.first == nullptr)
 		{
 			Node*tmp = nd;
-			nd = nd->left;
+			root = nd->left;
 			tmp->left = nullptr;
 			delete tmp;
 			return;

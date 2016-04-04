@@ -36,8 +36,8 @@ class BinTree
 		
 	void insert (int x);
 	void print() const;
-	Node *& search(int x, Node *& nd);
-	Node *& search(int x);
+	Node * search(int x);
+	Node * search(int x, Node * nd);
 	int size() const;
 	int maxdepth() const;
 	int mindepth() const;
@@ -52,7 +52,6 @@ class BinTree
 	
   private:
 	Node * root=nullptr;
-	Node * nullnode=nullptr;
 	void insert (Node * nd, int x);
 	void print(Node * nd, int spaces) const;
 	void copy(Node * const & from, Node * & to);

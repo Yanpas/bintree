@@ -1,4 +1,4 @@
-CC=g++
+CC=clang++-3.6
 CFLAGS=-c -g -Wall -std=c++11
 LDFLAGS=
 SOURCES=main.cpp bintree.cpp

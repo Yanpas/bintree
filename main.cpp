@@ -32,7 +32,7 @@ int main()
 		std::cout << "del\t" << n << std::endl;
 		kek.delnode(n);
 		kek.print();
-		std::cout << "newsize: " << kek.size() << std::endl;
+		std::cout << "newsize: " << kek.size() << std::endl << std::endl;
 	}
 	kek.print();
 //	std::cout << getroot(kek);
