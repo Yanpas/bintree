@@ -1,6 +1,6 @@
 #ifndef BinTree_H
 #define BinTree_H
-
+//ты петух
 #include <initializer_list>
 #include <iostream>
 #include <string>
